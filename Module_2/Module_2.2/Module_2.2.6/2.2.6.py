@@ -18,7 +18,7 @@
 Сериал снять не удастся"""
 
 
-def read_input():s
+def read_input():
     """Read input data from files
 
     Returns:

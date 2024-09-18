@@ -21,41 +21,19 @@ date_for_booking — одиночная строковая дата или пе�
 
 from datetime import datetime
 
+def format_date(date_raw):
+    period = tuple(map(lambda x: datetime.strptime(x, "%d.%m.%Y"), date_raw.split("-")))
+    return period if len(period) > 1 else period * 2
+
+def is_overlap(period_1, period_2):
+    return (period_1[1] < period_2[0])| (period_1[0] > period_2[1])
+
 def is_available_date(dates, some_date):
-    asked_dates = []
-    not_available_dates = []
+    asked_dates = format_date(some_date)
     for el in dates:
-        temp_dates = []
-        el = el.split("-") 
-        for itm in el:
-            temp_dates.append(datetime.strptime(itm, '%d.%m.%Y').toordinal())
-        not_available_dates.append(temp_dates)
-    some_date = some_date.split("-") 
-    for itm in some_date:
-        asked_dates.append(datetime.strptime(itm, '%d.%m.%Y').toordinal())
-    flag = False
-    for el in not_available_dates:
-            if (len(el) == 1) &(len(asked_dates) == 1):
-                if asked_dates[0] != el[0]:
-                    flag = True
-                else:
-                    return False
-            elif (len(el) == 2) & (len(asked_dates) == 1):
-                if (asked_dates[0] < el[0]) | (asked_dates[0] > el[1]):
-                    flag = True
-                else:
-                    return False
-            if (len(el) == 1) & (len(asked_dates) == 2):
-                if (asked_dates[0] > el[0]) | (asked_dates[1] < el[0]):
-                    flag = True
-                else:
-                    return False
-            elif (len(el) == 2) & (len(asked_dates) == 2):
-                if ((asked_dates[0] < el[0]) & (asked_dates[1] < el[0])) | ((asked_dates[0] > el[1]) & (asked_dates[1] > el[1])):
-                    flag = True
-                else:
-                    return False
-    return flag
+        if not is_overlap(format_date(el), asked_dates):
+            return False
+    return True
 
 
 # INPUT DATA:

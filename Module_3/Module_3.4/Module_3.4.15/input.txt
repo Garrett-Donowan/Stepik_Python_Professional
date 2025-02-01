@@ -1,14 +1,21 @@
-# INPUT DATA:
+Sample Input 1:
 
-# TEST_1:
 04.11.2021
+Sample Output 1:
 
-# TEST_2:
+03.11.2021
+05.11.2021
+Sample Input 2:
+
 30.11.2021
+Sample Output 2:
 
-# TEST_3:
+29.11.2021
+01.12.2021
+Sample Input 3:
+
 01.11.2021
+Sample Output 3:
 
-# TEST_4:
-01.01.2021
-
+31.10.2021
+02.11.2021

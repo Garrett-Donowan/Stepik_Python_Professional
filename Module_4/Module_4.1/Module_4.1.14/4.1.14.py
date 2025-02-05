@@ -10,7 +10,16 @@
 Программа должна вывести единственное число — количество строк в введенном коде, 
 которые содержат в себе только комментарии."""
 
+import sys
 
+data = [line.strip() for line in sys.stdin]
+
+counter = 0
+for el in data:
+    if el.startswith("#"):
+        counter += 1
+        
+print(counter)
 
 
 

@@ -15,7 +15,18 @@ MIX, если даты в введенной последовательност�
     Параметры ASC и DESC используются в языке SQL для сортировки по возрастанию 
 и по убыванию соответственно."""
 
+import sys
+from datetime import datetime
 
+raw_data = [datetime.strptime(line.strip(), '%d.%m.%Y') for line in sys.stdin]
+
+
+if sorted(list(set(raw_data))) == raw_data:
+    print("ASC")
+elif sorted(list(set(raw_data)), reverse= True) == raw_data:
+    print("DESC")
+else:
+    print("MIX")
 
 
 

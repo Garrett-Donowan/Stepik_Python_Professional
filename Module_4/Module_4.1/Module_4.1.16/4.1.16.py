@@ -19,17 +19,15 @@
 Программа должна вывести все новости, которые относятся к введенной категории. 
 Новости должны быть расположены в порядке возрастания степени достоверности, 
 а при совпадении степеней достоверности — в лексикографическом порядке самих новостей."""
+import sys
 
-
-
-
-
-
-
-
-
-
-
+news = []
+raw_data = [line.strip().split(" / ") for line in sys.stdin]
+for el in raw_data:
+    if len(el) > 1:
+        if (el[1] == raw_data[-1][0]):
+            news.append([el[0], float(el[2])])
+print(*(i[0] for i in sorted(news, key=lambda x: (float(x[1]), x[0]))), sep='\n')
 
 
 

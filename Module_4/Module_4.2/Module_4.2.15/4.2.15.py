@@ -30,3 +30,19 @@ csv_columns('exam.csv')
 
 
 
+import csv
+
+
+def csv_columns(filename):
+    output_dict = {}
+    with open(filename, encoding='utf-8') as file:
+        rows = csv.DictReader(file, delimiter=',')
+        for row in rows:
+            for name in rows.fieldnames:
+                output_dict[name] = output_dict.get(name, []) + [row[name]] 
+    return output_dict 
+
+
+
+filename = input()
+csv_columns(filename)

@@ -59,3 +59,21 @@ updated_people.json.
 
 
 
+import json
+
+def up_data(data):
+        pass
+    
+new_dict = {}
+output_data = []
+with open('people.json', encoding="UTF-8") as file:
+    data = json.load(file)
+    for el in data:
+        new_dict = new_dict | el
+    for k, v in new_dict.items():
+        new_dict[k] = None
+    for el in data:
+        output_data.append(new_dict | el)
+
+with open('updated_people.json', 'w', encoding='utf-8') as file: 
+        json.dump(output_data, file, separators=(', ', ': '), indent=3)

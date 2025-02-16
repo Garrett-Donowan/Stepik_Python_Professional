@@ -35,4 +35,15 @@ ObjectName;AdmArea;District;Address
 }"""
 
 
+import json
+
+dict = {}
+with open('playgrounds.csv', encoding="UTF-8") as file:
+    rows = file.read()
+    table_raw = [r.split(';') for r in rows.splitlines()]
+    for el in table_raw[1::]:
+        dict.setdefault(el[1], {}).setdefault(el[2], []).append(el[3])      
+
+with open('addresses.json', 'w', encoding="UTF-8") as file: 
+        json.dump(dict, file, separators=(', ', ': '), indent=3, ensure_ascii=False)
 

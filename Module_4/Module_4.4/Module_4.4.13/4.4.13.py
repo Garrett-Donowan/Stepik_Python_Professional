@@ -54,3 +54,16 @@ Depth — глубина
 если бассейн работает в 10:00, но не работает в 11:30, он не подходит."""
 
 
+
+import json
+
+working = []
+with open('pools.json', encoding="UTF-8") as file:
+    data = json.load(file)
+    for el in data:
+        tmp = (el["WorkingHoursSummer"]["Понедельник"].split("-"))
+        if ((tmp[0].split(":"))[0] <= "10") & ((tmp[1].split(":"))[0] >= "12"):
+            working.append([el["Address"], el["DimensionsSummer"]["Length"], el["DimensionsSummer"]["Width"]])
+working = sorted(working, key= lambda x: (x[1],x[2]), reverse= True)
+print(f"{working[0][1]}x{working[0][2]}")
+print(working[0][0])

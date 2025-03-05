@@ -1,15 +1,27 @@
 
 from zipfile import ZipFile
 
-def extract_this(*args):
-    lst = [x for x in args]
-    with ZipFile(lst[0]) as zip_file:
-        if len(lst) <= 1:
-            zip_file.extractall()
-        else:
-            zip_file.extractall(members = lst[1::])
+def convert_bytes(size):
+    """Конвертер байт в большие единицы"""
+    if size < 1000:
+        return f'{size} B'
+    elif 1000 <= size < 1000000:
+        return f'{round(size / 1024)} KB'
+    elif 1000000 <= size < 1000000000:
+        return f'{round(size / 1048576)} MB'
+    else:
+        return f'{round(size / 1073741824)} GB'
+
+def structure_zip():
+    
+    with ZipFile('desktop.zip') as zip_file:
+        for el in zip_file.infolist():
+            struct = list(filter(lambda x: x != "", el.filename.split("/")))
+            if el.is_dir():
+                print("  " * (len(struct) -1) + struct[-1])
+            else:
+                print("  " * (len(struct) -1) + struct[-1] + " " + convert_bytes(el.file_size))
     return
 
-
-extract_this('workbook.zip', 'earth.jpg', 'exam.txt')
+structure_zip()
 

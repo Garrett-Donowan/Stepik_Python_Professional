@@ -29,4 +29,33 @@ try-except и функцией is_correct_json() из предыдущего у�
 Alex Iwobi
 Alexis Sanchez"""
 
+from zipfile import ZipFile
+import json
+
+
+def extract_json(zip_name):
+    players = []
+    with ZipFile(zip_name) as zip_file:
+        for el in list(filter(lambda el: el if ".json" in el.split('/')[-1] else "", zip_file.namelist())):
+            with zip_file.open(el) as file:
+                if is_correct_json(file.read()):
+                    with open(zip_file.extract(el), encoding="UTF-8") as f:
+                        data = json.load(f)
+                        if data["team"] == "Arsenal":              
+                                players.append([data["first_name"], data["last_name"]])
+    for el in sorted(players, key= lambda x: [x[0],x[1]]):
+        print(f"{el[0]} {el[1]}")
+    return
+
+
+def is_correct_json(str):
+    try:
+        json.loads(str)
+        return True
+    except Exception:
+        return False
+
+
+extract_json("data.zip")
+
 

@@ -1,6 +1,9 @@
-import pickle, sys
+from collections import Counter
 
-with open(input(), mode='rb') as file:
-    pickle.load(file)
-print(*list(map(str.strip, sys.stdin)))
-    
+def count_occurences(word, words):
+    return Counter(words.lower().split(" "))[word.lower()]
+
+word = 'python'
+words = 'Python Conferences python training python events'
+
+print(count_occurences(word, words))
